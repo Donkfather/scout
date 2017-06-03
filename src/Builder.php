@@ -59,8 +59,14 @@ class Builder
      * @var array
      */
     public $orders = [];
-
-    /**
+     /**
+      * The location constraint added to the query.
+      *
+      * @var array
+      */
+     public $location = [];
+ 
+     /**
      * Create a new search builder instance.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
@@ -103,6 +109,21 @@ class Builder
     }
 
     /**
+    * Add location constraint to the query
+      *
+      * @param float $lat
+      * @param float $lng
+      * @param int $radius Radius in km
+      * @return $this
+      */
+     public function withinLocation($lat, $lng, $radius = 10)
+     {
+         $this->location = compact('lat', 'lng', 'radius');
+ 
+         return $this;
+     }
+ 
+     /**
      * Set the "limit" for the search query.
      *
      * @param  int  $limit
